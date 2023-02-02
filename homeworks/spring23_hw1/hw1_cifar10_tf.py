@@ -30,7 +30,7 @@ if __name__ == '__main__':
     wandb.init(
         project="hw1_spring2023",  # Leave this as 'hw1_spring2023'
         entity="bu-spark-ml",  # Leave this
-        group="<your_BU_username>",  # <<<<<<< Put your BU username here
+        group="fjgao",  # <<<<<<< Put your BU username here
         notes="Minimal model"  # <<<<<<< You can put a short note here
     )
 
@@ -84,12 +84,19 @@ if __name__ == '__main__':
         # Edit code here -- Update the model definition
         # You will need a dense last layer with 10 output channels to classify the 10 classes
         # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+        keras.layers.Conv2D(32, 3, activation='relu', padding= 'same'),
+        keras.layers.Conv2D(32, 3, activation='relu'),
+        keras.layers.MaxPooling2D(),
+        keras.layers.Conv2D(16, 5, activation='relu'),
+        keras.layers.MaxPooling2D(),
         layers.Flatten(),
-        layers.Dense(128, activation='relu'),
+        layers.Dense(64, activation='relu'),
+        layers.Dense(32, activation='relu'),
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         tf.keras.layers.Dense(10)
     ])
 
+    epochs = 5
     # Log the training hyper-parameters for WandB
     # If you change these in model.compile() or model.fit(), be sure to update them here.
     wandb.config = {
@@ -98,7 +105,7 @@ if __name__ == '__main__':
         # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
         "learning_rate": 0.001,
         "optimizer": "adam",
-        "epochs": 5,
+        "epochs": epochs,
         "batch_size": 32
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     }
@@ -111,7 +118,7 @@ if __name__ == '__main__':
 
     history = model.fit(
         ds_cifar10_train,
-        epochs=5,
+        epochs=epochs,
         validation_data=ds_cifar10_test,
         callbacks=[WandbMetricsLogger()]
     )
