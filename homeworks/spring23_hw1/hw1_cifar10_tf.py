@@ -24,7 +24,7 @@ from matplotlib import pyplot as plt
 
 
 if __name__ == '__main__':
-    print("model 4a")
+    print("model 4b")
 
     # Leave entity="bu-spark-ml" and project="hw1_spring2023"
     # put your BU username in the `group=` parameter
@@ -122,22 +122,22 @@ if __name__ == '__main__':
         #####################################
         # Edit these as desired
         # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-        "learning_rate": 0.0025,
+        "learning_rate": 0.0015,
         "optimizer": "Adam",
-        "epochs": 10,
+        "epochs": 20,
         "batch_size": 32
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     }
 
     model.compile(
-        optimizer=tf.keras.optimizers.Adam(learning_rate=.0025),
+        optimizer=tf.keras.optimizers.Adam(learning_rate=.0015),
         loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
         metrics=[tf.keras.metrics.SparseCategoricalAccuracy()],
     )
 
     history = model.fit(
         ds_cifar10_train,
-        epochs=10,
+        epochs=20,
         validation_data=ds_cifar10_test,
         callbacks=[WandbMetricsLogger()]
     )
