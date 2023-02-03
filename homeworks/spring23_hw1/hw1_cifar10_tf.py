@@ -24,7 +24,7 @@ from matplotlib import pyplot as plt
 
 
 if __name__ == '__main__':
-    print("model 5")
+    print("model 5.1")
 
     # Leave entity="bu-spark-ml" and project="hw1_spring2023"
     # put your BU username in the `group=` parameter
@@ -86,24 +86,24 @@ if __name__ == '__main__':
         # You will need a dense last layer with 10 output channels to classify the 10 classes
         # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
         layers.Conv2D(32, 3, activation='relu', padding='same'),
-        layers.GroupNormalization(),
+        layers.GroupNormalization(4),
         layers.MaxPooling2D(),
         layers.Dropout(0.25),
         
         layers.Conv2D(64, 3, activation='relu', padding='same'),
-        layers.GroupNormalization(),
+        layers.GroupNormalization(8),
         layers.MaxPooling2D(),
         layers.Dropout(0.25),
 
         layers.Conv2D(128, 3, activation='relu', padding='same'),
-        layers.GroupNormalization(),
+        layers.GroupNormalization(16),
         layers.MaxPooling2D(),
         layers.Dropout(0.25),
 
         layers.Flatten(),
         
         layers.Dense(128, activation='relu'),
-        layers.BatchNormalization(),
+        layers.GroupNormalization(16),
         layers.Dropout(0.5),
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         tf.keras.layers.Dense(10)
@@ -111,8 +111,8 @@ if __name__ == '__main__':
 
     # Log the training hyper-parameters for WandB
     # If you change these in model.compile() or model.fit(), be sure to update them here.
-    learning_rate = 0.003
-    epochs = 20
+    learning_rate = 0.002
+    epochs = 25
     wandb.config = {
         #####################################
         # Edit these as desired
