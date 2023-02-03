@@ -24,7 +24,7 @@ from matplotlib import pyplot as plt
 
 
 if __name__ == '__main__':
-    print("model 4c")
+    print("model 4d")
 
     # Leave entity="bu-spark-ml" and project="hw1_spring2023"
     # put your BU username in the `group=` parameter
@@ -105,7 +105,15 @@ if __name__ == '__main__':
         layers.MaxPooling2D(),
         layers.Dropout(0.25),
 
+        layers.Conv2D(512, 3, activation='relu', padding='same'),
+        layers.BatchNormalization(),
+        layers.MaxPooling2D(),
+        layers.Dropout(0.25),
+
         layers.Flatten(),
+        layers.Dense(512, activation='relu'),
+        layers.BatchNormalization(),
+        layers.Dropout(0.5),
         layers.Dense(256, activation='relu'),
         layers.BatchNormalization(),
         layers.Dropout(0.5),
