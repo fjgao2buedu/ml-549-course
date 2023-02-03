@@ -141,4 +141,4 @@ dmypy.json
 datasets/
 wandb/
 homeworks/spring23_hw1/test.ipynb
-homeworks/spring23_hw1/hw1_cifar10_tf_local.py
+homeworks/spring23_hw1/hw1_cifar10_local.py
