@@ -24,7 +24,7 @@ from matplotlib import pyplot as plt
 
 
 if __name__ == '__main__':
-    print("model 4e")
+    print("model 5")
 
     # Leave entity="bu-spark-ml" and project="hw1_spring2023"
     # put your BU username in the `group=` parameter
@@ -100,25 +100,10 @@ if __name__ == '__main__':
         layers.MaxPooling2D(),
         layers.Dropout(0.25),
 
-        layers.Conv2D(256, 3, activation='relu', padding='same'),
-        layers.GroupNormalization(),
-        layers.MaxPooling2D(),
-        layers.Dropout(0.25),
-
-        layers.Conv2D(512, 3, activation='relu', padding='same'),
-        layers.GroupNormalization(),
-        layers.MaxPooling2D(),
-        layers.Dropout(0.25),
-
         layers.Flatten(),
-        layers.Dense(512, activation='relu'),
-        layers.GroupNormalization(),
-        layers.Dropout(0.5),
-        layers.Dense(256, activation='relu'),
-        layers.GroupNormalization(),
-        layers.Dropout(0.5),
+        
         layers.Dense(128, activation='relu'),
-        layers.GroupNormalization(),
+        layers.BatchNormalization(),
         layers.Dropout(0.5),
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         tf.keras.layers.Dense(10)
@@ -126,7 +111,7 @@ if __name__ == '__main__':
 
     # Log the training hyper-parameters for WandB
     # If you change these in model.compile() or model.fit(), be sure to update them here.
-    learning_rate = 0.002
+    learning_rate = 0.003
     epochs = 20
     wandb.config = {
         #####################################
