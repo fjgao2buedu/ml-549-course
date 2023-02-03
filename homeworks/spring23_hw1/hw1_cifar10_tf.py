@@ -24,7 +24,7 @@ from matplotlib import pyplot as plt
 
 
 if __name__ == '__main__':
-    print("model 5.1")
+    print("model 5.2")
 
     # Leave entity="bu-spark-ml" and project="hw1_spring2023"
     # put your BU username in the `group=` parameter
@@ -86,32 +86,36 @@ if __name__ == '__main__':
         # You will need a dense last layer with 10 output channels to classify the 10 classes
         # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
         layers.Conv2D(32, 3, activation='relu', padding='same'),
-        layers.GroupNormalization(4),
+        layers.Conv2D(32, 1, activation='relu', padding='same'),
         layers.MaxPooling2D(),
-        layers.Dropout(0.25),
+        layers.GroupNormalization(4),
+        layers.GaussianDropout(0.25),
         
         layers.Conv2D(64, 3, activation='relu', padding='same'),
-        layers.GroupNormalization(8),
+        layers.Conv2D(64, 1, activation='relu', padding='same'),
         layers.MaxPooling2D(),
-        layers.Dropout(0.25),
+        layers.GroupNormalization(8),
+        layers.GaussianDropout(0.25),
 
         layers.Conv2D(128, 3, activation='relu', padding='same'),
-        layers.GroupNormalization(16),
+        layers.Conv2D(128, 1, activation='relu', padding='same'),
         layers.MaxPooling2D(),
-        layers.Dropout(0.25),
+        layers.GroupNormalization(16),
+        layers.GaussianDropout(0.25),
 
         layers.Flatten(),
-        
-        layers.Dense(128, activation='relu'),
-        layers.GroupNormalization(16),
+
+        layers.Dense(512, activation='relu'),
         layers.Dropout(0.5),
+        layers.Dense(128, activation='relu'),
+        layers.Dropout(0.25),
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        tf.keras.layers.Dense(10)
+        layers.Dense(10, activation='softmax')
     ])
 
     # Log the training hyper-parameters for WandB
     # If you change these in model.compile() or model.fit(), be sure to update them here.
-    learning_rate = 0.002
+    learning_rate = 0.0015
     epochs = 25
     wandb.config = {
         #####################################
