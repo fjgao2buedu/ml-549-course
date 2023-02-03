@@ -84,19 +84,25 @@ if __name__ == '__main__':
         # Edit code here -- Update the model definition
         # You will need a dense last layer with 10 output channels to classify the 10 classes
         # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-        keras.layers.Conv2D(32, 3, activation='relu', padding= 'same'),
-        keras.layers.Conv2D(32, 3, activation='relu'),
-        keras.layers.MaxPooling2D(),
-        keras.layers.Conv2D(16, 5, activation='relu'),
-        keras.layers.MaxPooling2D(),
+        layers.Conv2D(32, 3, activation='relu', padding='same'),
+        layers.Conv2D(32, 3, activation='relu'),
+        layers.MaxPooling2D(),
+        layers.Dropout(0.25),
+
+        layers.Conv2D(16, 5, padding='same', activation='relu'),
+        layers.Conv2D(16, 5, activation='relu'),
+        layers.MaxPooling2D(),
+        layers.Dropout(0.25),
+
         layers.Flatten(),
         layers.Dense(64, activation='relu'),
+        layers.Dropout(0.25),
         layers.Dense(32, activation='relu'),
+        layers.Dropout(0.25),
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         tf.keras.layers.Dense(10)
     ])
 
-    epochs = 5
     # Log the training hyper-parameters for WandB
     # If you change these in model.compile() or model.fit(), be sure to update them here.
     wandb.config = {
@@ -105,7 +111,7 @@ if __name__ == '__main__':
         # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
         "learning_rate": 0.001,
         "optimizer": "adam",
-        "epochs": epochs,
+        "epochs": 10,
         "batch_size": 32
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     }
@@ -118,7 +124,7 @@ if __name__ == '__main__':
 
     history = model.fit(
         ds_cifar10_train,
-        epochs=epochs,
+        epochs=10,
         validation_data=ds_cifar10_test,
         callbacks=[WandbMetricsLogger()]
     )
