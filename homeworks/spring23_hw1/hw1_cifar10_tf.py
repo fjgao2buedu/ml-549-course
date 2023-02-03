@@ -24,7 +24,7 @@ from matplotlib import pyplot as plt
 
 
 if __name__ == '__main__':
-    print("model 3.1")
+    print("model 3.2")
 
     # Leave entity="bu-spark-ml" and project="hw1_spring2023"
     # put your BU username in the `group=` parameter
@@ -92,18 +92,18 @@ if __name__ == '__main__':
         layers.MaxPooling2D(),
         layers.Dropout(0.25),
         
-        layers.Conv2D(64, 5, activation='relu', padding='same'),
+        layers.Conv2D(64, 3, activation='relu', padding='same'),
         layers.BatchNormalization(),
-        layers.Conv2D(64, 5, activation='relu'),
+        layers.Conv2D(64, 3, activation='relu'),
         layers.BatchNormalization(),
         layers.MaxPooling2D(),
         layers.Dropout(0.25),
 
         layers.Flatten(),
-        layers.Dense(64, activation='relu'),
+        layers.Dense(128, activation='relu'),
         layers.BatchNormalization(),
         layers.Dropout(0.5),
-        layers.Dense(32, activation='relu'),
+        layers.Dense(64, activation='relu'),
         layers.BatchNormalization(),
         layers.Dropout(0.5),
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -116,7 +116,7 @@ if __name__ == '__main__':
         #####################################
         # Edit these as desired
         # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-        "learning_rate": 0.002,
+        "learning_rate": 0.0025,
         "optimizer": "Adam",
         "epochs": 10,
         "batch_size": 32
@@ -124,7 +124,7 @@ if __name__ == '__main__':
     }
 
     model.compile(
-        optimizer=tf.keras.optimizers.Adam(learning_rate=.002),
+        optimizer=tf.keras.optimizers.Adam(learning_rate=.0025),
         loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
         metrics=[tf.keras.metrics.SparseCategoricalAccuracy()],
     )
