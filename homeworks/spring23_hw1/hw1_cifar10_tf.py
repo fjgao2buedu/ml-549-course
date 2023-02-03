@@ -85,20 +85,26 @@ if __name__ == '__main__':
         # You will need a dense last layer with 10 output channels to classify the 10 classes
         # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
         layers.Conv2D(32, 3, activation='relu', padding='same'),
+        layers.BatchNormalization(),
         layers.Conv2D(32, 3, activation='relu'),
+        layers.BatchNormalization(),
         layers.MaxPooling2D(),
         layers.Dropout(0.25),
-
-        layers.Conv2D(16, 5, padding='same', activation='relu'),
-        layers.Conv2D(16, 5, activation='relu'),
+        
+        layers.Conv2D(64, 5, activation='relu', padding='same'),
+        layers.BatchNormalization(),
+        layers.Conv2D(64, 5, activation='relu'),
+        layers.BatchNormalization(),
         layers.MaxPooling2D(),
         layers.Dropout(0.25),
 
         layers.Flatten(),
         layers.Dense(64, activation='relu'),
-        layers.Dropout(0.25),
+        layers.BatchNormalization(),
+        layers.Dropout(0.5),
         layers.Dense(32, activation='relu'),
-        layers.Dropout(0.25),
+        layers.BatchNormalization(),
+        layers.Dropout(0.5),
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         tf.keras.layers.Dense(10)
     ])
@@ -109,15 +115,15 @@ if __name__ == '__main__':
         #####################################
         # Edit these as desired
         # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-        "learning_rate": 0.001,
-        "optimizer": "adam",
+        "learning_rate": 0.002,
+        "optimizer": "AdamW",
         "epochs": 10,
         "batch_size": 32
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     }
 
     model.compile(
-        optimizer=tf.keras.optimizers.Adam(learning_rate=.001),
+        optimizer=tf.keras.optimizers.AdamW(learning_rate=.002),
         loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
         metrics=[tf.keras.metrics.SparseCategoricalAccuracy()],
     )
