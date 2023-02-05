@@ -24,7 +24,7 @@ from matplotlib import pyplot as plt
 
 
 if __name__ == '__main__':
-    print("model 5.2")
+    print("model 5.3")
 
     # Leave entity="bu-spark-ml" and project="hw1_spring2023"
     # put your BU username in the `group=` parameter
@@ -86,21 +86,21 @@ if __name__ == '__main__':
         # You will need a dense last layer with 10 output channels to classify the 10 classes
         # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
         layers.Conv2D(32, 3, activation='relu', padding='same'),
-        layers.Conv2D(32, 1, activation='relu', padding='same'),
+        layers.Conv2D(32, 3, activation='relu', padding='same'),
         layers.MaxPooling2D(),
-        layers.GroupNormalization(4),
+        layers.GroupNormalization(16),
         layers.GaussianDropout(0.25),
         
         layers.Conv2D(64, 3, activation='relu', padding='same'),
-        layers.Conv2D(64, 1, activation='relu', padding='same'),
+        layers.Conv2D(64, 3, activation='relu', padding='same'),
         layers.MaxPooling2D(),
-        layers.GroupNormalization(8),
+        layers.GroupNormalization(32),
         layers.GaussianDropout(0.25),
 
         layers.Conv2D(128, 3, activation='relu', padding='same'),
-        layers.Conv2D(128, 1, activation='relu', padding='same'),
+        layers.Conv2D(128, 3, activation='relu', padding='same'),
         layers.MaxPooling2D(),
-        layers.GroupNormalization(16),
+        layers.GroupNormalization(64),
         layers.GaussianDropout(0.25),
 
         layers.Flatten(),
