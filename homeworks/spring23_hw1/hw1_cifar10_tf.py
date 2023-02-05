@@ -24,7 +24,7 @@ from matplotlib import pyplot as plt
 
 
 if __name__ == '__main__':
-    print("model 5.3.4")
+    print("model 5.4")
 
     # Leave entity="bu-spark-ml" and project="hw1_spring2023"
     # put your BU username in the `group=` parameter
@@ -88,19 +88,19 @@ if __name__ == '__main__':
         layers.Conv2D(32, 3, activation='relu', padding='same'),
         layers.Conv2D(32, 3, activation='relu', padding='same'),
         layers.MaxPooling2D(),
-        layers.GroupNormalization(16),
+        layers.BatchNormalization(),
         layers.GaussianDropout(0.25),
         
         layers.Conv2D(64, 3, activation='relu', padding='same'),
         layers.Conv2D(64, 3, activation='relu', padding='same'),
         layers.MaxPooling2D(),
-        layers.GroupNormalization(32),
+        layers.BatchNormalization(),
         layers.GaussianDropout(0.25),
 
         layers.Conv2D(128, 3, activation='relu', padding='same'),
         layers.Conv2D(128, 3, activation='relu', padding='same'),
         layers.MaxPooling2D(),
-        layers.GroupNormalization(64),
+        layers.BatchNormalization(),
         layers.GaussianDropout(0.25),
 
         layers.Flatten(),
@@ -108,7 +108,7 @@ if __name__ == '__main__':
         layers.Dense(512, activation='relu'),
         layers.Dropout(0.5),
         layers.Dense(128, activation='relu'),
-        layers.Dropout(0.5),
+        layers.Dropout(0.1),
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         layers.Dense(10, activation='softmax')
     ])
