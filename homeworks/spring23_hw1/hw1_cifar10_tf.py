@@ -24,7 +24,7 @@ from matplotlib import pyplot as plt
 
 
 if __name__ == '__main__':
-    print("model 5.3")
+    print("model 5.3.1")
 
     # Leave entity="bu-spark-ml" and project="hw1_spring2023"
     # put your BU username in the `group=` parameter
@@ -105,8 +105,8 @@ if __name__ == '__main__':
 
         layers.Flatten(),
 
-        layers.Dense(512, activation='relu'),
-        layers.Dropout(0.5),
+        # layers.Dense(512, activation='relu'),
+        # layers.Dropout(0.5),
         layers.Dense(128, activation='relu'),
         layers.Dropout(0.25),
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
