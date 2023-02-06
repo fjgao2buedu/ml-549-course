@@ -99,8 +99,8 @@ def base_model(samepadding, batchnormal, units, lr ):
 def build_model(hp):
     samepadding = hp.Boolean("samepadding")
     batchnormal = hp.Boolean("batchnormal")
-    units = hp.Int("units", min_value=128, max_value=512, step=128)
-    lr = hp.Float("lr", min_value=1e-4, max_value=1e-3, sampling="log")
+    units = hp.Int("units", min_value=384, max_value=512, step=128)
+    lr = hp.Float("lr", min_value=5e-4, max_value=1e-3, sampling="log")
     return base_model(samepadding, batchnormal, units, lr)
 # print(build_model(keras_tuner.HyperParameters()).summary())
 
@@ -114,7 +114,7 @@ tuner = keras_tuner.RandomSearch(
     project_name="tuner_hw1",
 )
 # print(tuner.search_space_summary())
-tuner.search(ds_cifar10_train, epochs=5, validation_data=ds_cifar10_test)
+tuner.search(ds_cifar10_train, epochs=6, validation_data=ds_cifar10_test)
 
 # %%
 best_hp = tuner.get_best_hyperparameters(1)[0]
